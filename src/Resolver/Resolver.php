@@ -2,6 +2,8 @@
 
 namespace WPDesk\View\Resolver;
 
+use WPDesk\View\Renderer\Renderer;
+
 /**
  * Can resolve template name to a file
  */
@@ -14,5 +16,5 @@ interface Resolver {
 	 *
 	 * @return mixed
 	 */
-	public function resolve($name, Resolver $renderer = null);
+	public function resolve($name, Renderer $renderer = null);
 }
