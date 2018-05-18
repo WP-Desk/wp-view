@@ -18,7 +18,7 @@
         "wimg/php-compatibility": "^8"
     },
     "autoload": {
-        "classmap": ["src/"]
+        "psr-4": {"WPDesk\\View\\": "src/"}
     },
     "autoload-dev": {
     },
