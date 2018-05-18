@@ -10,8 +10,11 @@ use WPDesk\View\Resolver\Resolver;
 class LoadTemplatePlugin implements Renderer {
 	private $plugin;
 
-	public function __construct($plugin) {
+	private $path;
+
+	public function __construct($plugin, $path = '') {
 		$this->plugin = $plugin;
+		$this->path = $path;
 	}
 
 	public function set_resolver( Resolver $resolver ) {
@@ -19,6 +22,6 @@ class LoadTemplatePlugin implements Renderer {
 	}
 
 	public function render( $template, $params ) {
-		return $this->plugin->load_template($template, '', $params);
+		return $this->plugin->load_template($template, $this->path, $params);
 	}
 }
