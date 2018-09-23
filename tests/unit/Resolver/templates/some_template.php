@@ -1,2 +1,1 @@
-<?php
-    echo 'outputText';
+this is dummy text
