@@ -29,7 +29,7 @@ class SimplePhpRenderer implements Renderer
 
     /**
      * @param string $template
-     * @param array $params
+     * @param array|null $params
      *
      * @return string
      */
@@ -40,7 +40,7 @@ class SimplePhpRenderer implements Renderer
         }
 
         ob_start();
-        include($this->resolver->resolve($template));
+        include($this->resolver->resolve($template . '.php'));
 
         return ob_get_clean();
     }

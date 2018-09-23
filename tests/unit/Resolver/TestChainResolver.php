@@ -28,7 +28,7 @@ class TestChainResolver extends \PHPUnit\Framework\TestCase
             ->andReturn(self::RESPONSE_OF_RESOLVER);
 
         $resolver = new ChainResolver(new NullResolver(), new NullResolver(), $validResolver);
-        $this->assertEquals(self::RESPONSE_OF_RESOLVER, $resolver->resolve('whatever'));
+        $this->assertEquals(self::RESPONSE_OF_RESOLVER, $resolver->resolve('whatever.php'));
     }
 
     public function testUseFirstResolverFirst()
@@ -39,7 +39,7 @@ class TestChainResolver extends \PHPUnit\Framework\TestCase
             ->andReturn(self::RESPONSE_OF_RESOLVER);
 
         $resolver = new ChainResolver($validResolver, new NullResolver(), new NullResolver());
-        $this->assertEquals(self::RESPONSE_OF_RESOLVER, $resolver->resolve('whatever'));
+        $this->assertEquals(self::RESPONSE_OF_RESOLVER, $resolver->resolve('whatever.php'));
     }
 
     public function testThrowExceptionWhenBothCannotFind()

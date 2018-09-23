@@ -40,7 +40,7 @@ class WPThemeResolver implements Resolver
     {
         $templateFile = locate_template(
             [
-                trailingslashit($this->template_base_path) . $name . '.php',
+                trailingslashit($this->template_base_path) . $name,
             ]
         );
         if ( ! $templateFile) {

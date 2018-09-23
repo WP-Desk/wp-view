@@ -39,7 +39,7 @@ class DirResolver implements Resolver
     public function resolve($name, Renderer $renderer = null)
     {
         $dir = rtrim($this->dir, '/');
-        $fullName = $dir . '/' . $name . '.php';
+        $fullName = $dir . '/' . $name;
         if (file_exists($fullName)) {
             return $fullName;
         }

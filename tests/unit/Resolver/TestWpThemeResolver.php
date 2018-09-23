@@ -5,7 +5,7 @@ use WPDesk\View\Resolver\Exception\CanNotResolve;
 
 class TestThemeResolver extends \PHPUnit\Framework\TestCase
 {
-    const TEMPLATE_NAME = 'some_template';
+    const TEMPLATE_NAME = 'some_template.php';
     const TEMPLATE_FILE = 'some_template.php';
     const TEMPLATE_SUBDIR = 'templates';
 
