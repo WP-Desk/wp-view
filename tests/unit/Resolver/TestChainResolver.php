@@ -1,55 +1,52 @@
 <?php
 
-
+use WPDesk\View\Resolver\ChainResolver;
 use WPDesk\View\Resolver\Exception\CanNotResolve;
+use WPDesk\View\Resolver\NullResolver;
 
 class TestChainResolver extends \PHPUnit\Framework\TestCase
 {
-    const RESPONSE_OF_FIRST_RESOLVER = 'first';
-    const RESPONSE_OF_SECOND_RESOLVER = 'second';
+    const RESPONSE_OF_RESOLVER = 'response';
 
     const RESOLVE_METHOD_NAME = 'resolve';
 
+    public function setUp()
+    {
+        \WP_Mock::setUp();
+    }
+
+    public function tearDown()
+    {
+        \WP_Mock::tearDown();
+    }
+
     public function testUseSecondResolverWhenFirstFailed()
     {
-        $firstResolver  = Mockery::mock(\WPDesk\View\Resolver\Resolver::class)
-                                 ->shouldReceive(self::RESOLVE_METHOD_NAME)
-                                 ->andThrowExceptions([CanNotResolve::class]);
-        $secondResolver = Mockery::mock(\WPDesk\View\Resolver\Resolver::class)
-                                 ->shouldReceive(self::RESOLVE_METHOD_NAME)
-                                 ->andReturn(self::RESPONSE_OF_SECOND_RESOLVER);
+        $validResolver = Mockery::mock(NullResolver::class);
+        $validResolver
+            ->shouldReceive(self::RESOLVE_METHOD_NAME)
+            ->andReturn(self::RESPONSE_OF_RESOLVER);
 
-        $resolver = new \WPDesk\View\Resolver\ChainResolver($firstResolver, $secondResolver);
-        $this->assertEquals(self::RESPONSE_OF_SECOND_RESOLVER, $resolver->resolver('whatever'));
+        $resolver = new ChainResolver(new NullResolver(), new NullResolver(), $validResolver);
+        $this->assertEquals(self::RESPONSE_OF_RESOLVER, $resolver->resolve('whatever'));
     }
 
     public function testUseFirstResolverFirst()
     {
-        $firstResolver = Mockery::mock(\WPDesk\View\Resolver\Resolver::class)
-                                ->shouldReceive(self::RESOLVE_METHOD_NAME)
-                                ->andReturn(self::RESPONSE_OF_FIRST_RESOLVER);
+        $validResolver = Mockery::mock(NullResolver::class);
+        $validResolver
+            ->shouldReceive(self::RESOLVE_METHOD_NAME)
+            ->andReturn(self::RESPONSE_OF_RESOLVER);
 
-        $secondResolver = Mockery::mock(\WPDesk\View\Resolver\Resolver::class)
-                                 ->shouldReceive(self::RESOLVE_METHOD_NAME)
-                                 ->andThrowExceptions([CanNotResolve::class]);
-
-        $resolver = new \WPDesk\View\Resolver\ChainResolver($firstResolver, $secondResolver);
-        $this->assertEquals(self::RESPONSE_OF_SECOND_RESOLVER, $resolver->resolver('whatever'));
+        $resolver = new ChainResolver($validResolver, new NullResolver(), new NullResolver());
+        $this->assertEquals(self::RESPONSE_OF_RESOLVER, $resolver->resolve('whatever'));
     }
 
     public function testThrowExceptionWhenBothCannotFind()
     {
         $this->expectException(CanNotResolve::class);
 
-        $firstResolver  = Mockery::mock(\WPDesk\View\Resolver\Resolver::class)
-                                 ->shouldReceive(self::RESOLVE_METHOD_NAME)
-                                 ->andThrowExceptions([CanNotResolve::class]);
-
-        $secondResolver = Mockery::mock(\WPDesk\View\Resolver\Resolver::class)
-                                 ->shouldReceive(self::RESOLVE_METHOD_NAME)
-                                 ->andThrowExceptions([CanNotResolve::class]);
-
-        $resolver = new \WPDesk\View\Resolver\ChainResolver($firstResolver, $secondResolver);
+        $resolver = new ChainResolver(new NullResolver(), new NullResolver());
 
         $resolver->resolve('whatever2');
     }
