@@ -21,7 +21,7 @@ class DirResolver implements Resolver
     /**
      * Base path for templates ie. subdir
      *
-     * @param $template_base_path
+     * @param $dir
      */
     public function __construct($dir)
     {
