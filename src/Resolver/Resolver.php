@@ -14,7 +14,7 @@ interface Resolver {
 	 * @param  string $name
 	 * @param  null|Resolver $renderer
 	 *
-	 * @return mixed
+	 * @return string
 	 */
 	public function resolve($name, Renderer $renderer = null);
 }
