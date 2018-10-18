@@ -21,7 +21,7 @@ class LoadTemplatePlugin implements Renderer {
 
 	}
 
-	public function render( $template, $params ) {
+	public function render($template, array $params = null) {
 		return $this->plugin->load_template($template, $this->path, $params);
 	}
 }
