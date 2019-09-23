@@ -32,7 +32,7 @@ class TestThemeResolver extends \PHPUnit\Framework\TestCase
 
         \WP_Mock::userFunction('trailingslashit', [
             'return' => function ($string) {
-                return untrailingslashit($string) . '/';
+                return rtrim($string, '/\\') . '/';
             }
         ]);
 
