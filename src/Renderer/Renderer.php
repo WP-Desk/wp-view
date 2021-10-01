@@ -23,4 +23,6 @@ interface Renderer
      * @return string
      */
     public function render($template, array $params = null);
+
+    public function show_rendered($template, array $params = null);
 }

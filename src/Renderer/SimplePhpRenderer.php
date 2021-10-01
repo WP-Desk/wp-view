@@ -35,14 +35,22 @@ class SimplePhpRenderer implements Renderer
      */
     public function render($template, array $params = null)
     {
+        ob_start();
+        $this->show_rendered( $template, $params );
+        return ob_get_clean();
+    }
+
+    /**
+     * @param string $template
+     * @param array|null $params
+     */
+    public function show_rendered($template, array $params = null)
+    {
         if ($params !== null) {
             extract($params, EXTR_SKIP);
         }
 
-        ob_start();
         include($this->resolver->resolve($template . '.php'));
-
-        return ob_get_clean();
     }
 
 }
