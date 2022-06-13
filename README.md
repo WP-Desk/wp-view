@@ -7,7 +7,7 @@
 WP View
 =======
 
-wp-view is a simple to render templates.
+wp-view is a simple library to render templates.
 
 ## Requirements
 
