@@ -10,12 +10,12 @@ class TestChainResolver extends \PHPUnit\Framework\TestCase
 
     const RESOLVE_METHOD_NAME = 'resolve';
 
-    public function setUp()
+    public function setUp(): void
     {
         \WP_Mock::setUp();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         \WP_Mock::tearDown();
     }

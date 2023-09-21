@@ -9,12 +9,12 @@ class TestDirResolver extends \PHPUnit\Framework\TestCase
     const TEMPLATE_FILE = 'some_template.php';
     const TEMPLATE_SUBDIR = 'templates';
 
-	public function setUp()
+	public function setUp(): void
 	{
 		\WP_Mock::setUp();
 	}
 
-	public function tearDown()
+	public function tearDown(): void
 	{
 		\WP_Mock::tearDown();
 	}
