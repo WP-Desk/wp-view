@@ -4,71 +4,21 @@ variables:
   GIT_STRATEGY: fetch
 
 stages:
-  - tools
   - tests
 
-.template: &job-test-template
-  stage: tests
-  coverage: '/^\s*Lines:\s*\d+.\d+\%/'
-
-.template: &job-test-unit-template
-  <<: *job-test-template
-  script:
-    - echo ${WPDESK_CI_VERSION}
-    - ls -l
-    - php --version
-    - cat /tmp/wordpress-develop/src/wp-includes/version.php
-    - cat /tmp/woocommerce/woocommerce.php
-    - composer update --no-progress
-    - vendor/bin/phpunit --configuration phpunit-unit.xml --coverage-text --colors=never
-
-.template: &job-test-unit-template-fast
-  <<: *job-test-unit-template
-  script:
-    - echo ${WPDESK_CI_VERSION}
-    - ls -l
-    - php --version
-    - cat /tmp/wordpress-develop/src/wp-includes/version.php
-    - cat /tmp/woocommerce/woocommerce.php
-    - composer update --no-progress
-    - vendor/bin/phpunit --configuration phpunit-unit.xml --no-coverage
-
-
-before_script:
-  - cd ${CI_PROJECT_DIR}
-
-phpmetric metrics:
-  stage: tools
+unit test lastest:
   image: wpdesknet/phpunit-woocommerce:0-0
-  allow_failure: true
-  when: manual
+  stage: tests
   artifacts:
     when: always
-    expire_in: 1 month
-    name: "metrics"
-    paths:
-      - ${CI_PROJECT_DIR}/phpmetric
+    reports:
+      junit: phpunit-report.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: phpunit-coverage.xml
+  coverage: '/^\s*Lines:\s*\d+.\d+\%/'
+  variables:
+    XDEBUG_MODE: coverage
   script:
-    - echo ${WPDESK_CI_VERSION}
-    - composer require phpmetrics/phpmetrics
-    - composer update --no-progress
-    - php ./vendor/bin/phpmetrics --report-html=phpmetric .
-
-churn metrics:
-  stage: tools
-  image: wpdesknet/phpunit-woocommerce:0-0
-  allow_failure: true
-  when: manual
-  script:
-    - echo ${WPDESK_CI_VERSION}
-    - composer require bmitch/churn-php
-    - composer update --no-progress
-    - vendor/bin/churn run classes inc
-
-unit test lastest:
-  <<: *job-test-unit-template-fast
-  image: wpdesknet/phpunit-woocommerce:0-0
-
-integration test lastest:
-  <<: *job-test-unit-template
-  image: wpdesknet/phpunit-woocommerce:0-0
+    - composer install --no-progress --no-ansi --no-interaction
+    - vendor/bin/phpunit --do-not-cache-result --log-junit phpunit-report.xml --coverage-cobertura phpunit-coverage.xml --coverage-text --colors=never
