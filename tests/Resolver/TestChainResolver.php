@@ -1,5 +1,7 @@
 <?php
 
+namespace WPDesk\View\Tests;
+
 use WPDesk\View\Resolver\ChainResolver;
 use WPDesk\View\Resolver\Exception\CanNotResolve;
 use WPDesk\View\Resolver\NullResolver;
@@ -22,7 +24,7 @@ class TestChainResolver extends \PHPUnit\Framework\TestCase
 
     public function testUseSecondResolverWhenFirstFailed()
     {
-        $validResolver = Mockery::mock(NullResolver::class);
+        $validResolver = \Mockery::mock(NullResolver::class);
         $validResolver
             ->shouldReceive(self::RESOLVE_METHOD_NAME)
             ->andReturn(self::RESPONSE_OF_RESOLVER);
@@ -33,7 +35,7 @@ class TestChainResolver extends \PHPUnit\Framework\TestCase
 
     public function testUseFirstResolverFirst()
     {
-        $validResolver = Mockery::mock(NullResolver::class);
+        $validResolver = \Mockery::mock(NullResolver::class);
         $validResolver
             ->shouldReceive(self::RESOLVE_METHOD_NAME)
             ->andReturn(self::RESPONSE_OF_RESOLVER);

@@ -19,6 +19,9 @@
     "autoload": {
         "psr-4": {"WPDesk\\View\\": "src/"}
     },
+    "autoload-dev": {
+        "psr-4": {"WPDesk\\View\\Tests\\": "tests/"}
+    },
     "scripts": {
         "test": "phpunit",
         "phpcs": "phpcs"

@@ -1,5 +1,6 @@
 <?php
 
+namespace WPDesk\View\Tests;
 
 use WPDesk\View\Resolver\Exception\CanNotResolve;
 
