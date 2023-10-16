@@ -1,39 +1,35 @@
 <?php
 
-namespace WPDesk\View\Tests;
+namespace WPDesk\View\Tests\Resolver;
 
+use WPDesk\View\Resolver\DirResolver;
 use WPDesk\View\Resolver\Exception\CanNotResolve;
+use WPDesk\View\Tests\TestCase;
 
-class TestDirResolver extends \PHPUnit\Framework\TestCase
-{
-    const TEMPLATE_NAME = 'some_template.php';
-    const TEMPLATE_FILE = 'some_template.php';
-    const TEMPLATE_SUBDIR = 'templates';
+class TestDirResolver extends TestCase {
 
-	public function setUp(): void
-	{
-		\WP_Mock::setUp();
+	public function testCanFindInDirPath(): void {
+		$resolver = new DirResolver(self::getTemplatesPath());
+
+		$this->assertEquals(
+			self::getTemplatesPath() . '/some_template.php',
+			$resolver->resolve('some_template.php'),
+			'Template should be found in dir'
+		);
 	}
 
-	public function tearDown(): void
-	{
-		\WP_Mock::tearDown();
+	public function testThrowExceptionWhenCannotFind(): void {
+		$this->expectException(CanNotResolve::class);
+
+		$resolver = new DirResolver('whatever');
+		$resolver->resolve('whatever2');
 	}
 
-    public function testCanFindInDirPath()
-    {
-        $dir = __DIR__ . '/' . self::TEMPLATE_SUBDIR;
-        $resolver           = new \WPDesk\View\Resolver\DirResolver($dir);
+	public function testResolvingFromCurrentPath(): void {
+		$this->expectException(CanNotResolve::class);
+		$this->expectExceptionMessage('Denying to search in system\'s root path.');
 
-        $this->assertStringEndsWith(self::TEMPLATE_FILE, $resolver->resolve(self::TEMPLATE_NAME),
-            'Template should be found in dir');
-    }
-
-    public function testThrowExceptionWhenCannotFind()
-    {
-        $this->expectException(CanNotResolve::class);
-
-        $resolver = new \WPDesk\View\Resolver\DirResolver('whatever');
-        $resolver->resolve('whatever2');
-    }
+		$resolver = new DirResolver(null);
+		$resolver->resolve('whatever2');
+	}
 }
