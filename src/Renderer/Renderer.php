@@ -13,6 +13,8 @@ interface Renderer
      * Set the resolver used to map a template name to a resource the renderer may consume.
      *
      * @param  Resolver $resolver
+	 *
+	 * @deprecated Setting resolver doesn't concern renderer. Pass it with setter method, or by constructor, but it shouldn't be included in interface declaration.
      */
     public function set_resolver(Resolver $resolver);
 

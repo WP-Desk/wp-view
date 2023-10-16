@@ -7,7 +7,7 @@ use WPDesk\View\Renderer\Renderer;
 use WPDesk\View\Resolver\Exception\CanNotResolve;
 
 /**
- * Class should resolve name by serching in provided dir. If empty then current dir
+ * Class should resolve name by serching in provided dir.
  *
  * @package WPDesk\View\Resolver
  */
@@ -21,10 +21,14 @@ class DirResolver implements Resolver
     /**
      * Base path for templates ie. subdir
      *
-     * @param $dir
+     * @param string $dir
      */
     public function __construct($dir)
     {
+		if ( empty( $dir ) ) {
+			trigger_error( "DirResolver requires templates' base path.", E_USER_DEPRECATED );
+		}
+
         $this->dir = $dir;
     }
 
@@ -39,6 +43,11 @@ class DirResolver implements Resolver
     public function resolve($name, Renderer $renderer = null)
     {
         $dir = rtrim($this->dir, '/');
+
+		if ( empty( $dir ) || $dir === '/' ) {
+			throw new CanNotResolve("Denying to search in system's root path.");
+		}
+
         $fullName = $dir . '/' . $name;
         if (file_exists($fullName)) {
             return $fullName;
