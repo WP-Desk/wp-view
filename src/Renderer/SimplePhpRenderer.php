@@ -7,50 +7,45 @@ use WPDesk\View\Resolver\Resolver;
 /**
  * Can render templates
  */
-class SimplePhpRenderer implements Renderer
-{
-    /** @var Resolver */
-    private $resolver;
+class SimplePhpRenderer implements Renderer {
 
-    public function __construct(Resolver $resolver)
-    {
-        $this->set_resolver($resolver);
-    }
+	/** @var Resolver */
+	private $resolver;
 
-    /**
-     * @param Resolver $resolver
-     *
-     * @return void|Resolver
-     */
-    public function set_resolver(Resolver $resolver)
-    {
-        $this->resolver = $resolver;
-    }
+	public function __construct( Resolver $resolver ) {
+		$this->set_resolver( $resolver );
+	}
 
-    /**
-     * @param string $template
-     * @param array|null $params
-     *
-     * @return string
-     */
-    public function render($template, array $params = null)
-    {
-        ob_start();
-        $this->output_render( $template, $params );
-        return ob_get_clean();
-    }
+	/**
+	 * @param Resolver $resolver
+	 *
+	 * @return void|Resolver
+	 */
+	public function set_resolver( Resolver $resolver ) {
+		$this->resolver = $resolver;
+	}
 
-    /**
-     * @param string $template
-     * @param array|null $params
-     */
-    public function output_render($template, array $params = null)
-    {
-        if ($params !== null) {
-            extract($params, EXTR_SKIP);
-        }
+	/**
+	 * @param string $template
+	 * @param array|null $params
+	 *
+	 * @return string
+	 */
+	public function render( $template, array $params = null ) {
+		ob_start();
+		$this->output_render( $template, $params );
+		return ob_get_clean();
+	}
 
-        include($this->resolver->resolve($template . '.php'));
-    }
+	/**
+	 * @param string $template
+	 * @param array|null $params
+	 */
+	public function output_render( $template, array $params = null ) {
+		if ( $params !== null ) {
+			extract( $params, EXTR_SKIP );
+		}
 
+		include $this->resolver->resolve( $template . '.php' );
+	}
 }

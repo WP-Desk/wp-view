@@ -3,8 +3,7 @@
 
 namespace WPDesk\View\Resolver\Exception;
 
+class CanNotResolve extends \RuntimeException {
 
-class CanNotResolve extends \RuntimeException
-{
 
 }
