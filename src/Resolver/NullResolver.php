@@ -2,7 +2,6 @@
 
 namespace WPDesk\View\Resolver;
 
-
 use WPDesk\View\Renderer\Renderer;
 use WPDesk\View\Resolver\Exception\CanNotResolve;
 
@@ -11,12 +10,10 @@ use WPDesk\View\Resolver\Exception\CanNotResolve;
  *
  * @package WPDesk\View\Resolver
  */
-class NullResolver implements Resolver
-{
+class NullResolver implements Resolver {
 
-    public function resolve($name, Renderer $renderer = null)
-    {
-        throw new CanNotResolve("Null Cannot resolve");
-    }
 
+	public function resolve( $name, Renderer $renderer = null ) {
+		throw new CanNotResolve( 'Null Cannot resolve' );
+	}
 }

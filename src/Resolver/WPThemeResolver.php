@@ -2,7 +2,6 @@
 
 namespace WPDesk\View\Resolver;
 
-
 use WPDesk\View\Renderer\Renderer;
 use WPDesk\View\Resolver\Exception\CanNotResolve;
 
@@ -11,43 +10,39 @@ use WPDesk\View\Resolver\Exception\CanNotResolve;
  *
  * @package WPDesk\View\Resolver
  */
-class WPThemeResolver implements Resolver
-{
+class WPThemeResolver implements Resolver {
 
-    /** @var string */
-    private $template_base_path;
+	/** @var string */
+	private $template_base_path;
 
 
-    /**
-     * Base path for templates ie. subdir
-     *
-     * @param $template_base_path
-     */
-    public function __construct($template_base_path)
-    {
-        $this->template_base_path = $template_base_path;
-    }
+	/**
+	 * Base path for templates ie. subdir
+	 *
+	 * @param $template_base_path
+	 */
+	public function __construct( $template_base_path ) {
+		$this->template_base_path = $template_base_path;
+	}
 
-    /**
-     * Resolve name to full path
-     *
-     * @param string $name
-     * @param Renderer|null $renderer
-     *
-     * @return string
-     */
-    public function resolve($name, Renderer $renderer = null)
-    {
-        $templateFile = locate_template(
-            [
-                trailingslashit($this->template_base_path) . $name,
-            ]
-        );
-        if ( ! $templateFile) {
-            throw new CanNotResolve("Cannot resolve {$name}");
-        }
+	/**
+	 * Resolve name to full path
+	 *
+	 * @param string $name
+	 * @param Renderer|null $renderer
+	 *
+	 * @return string
+	 */
+	public function resolve( $name, Renderer $renderer = null ) {
+		$templateFile = locate_template(
+			[
+				trailingslashit( $this->template_base_path ) . $name,
+			]
+		);
+		if ( ! $templateFile ) {
+			throw new CanNotResolve( "Cannot resolve {$name}" );
+		}
 
-        return $templateFile;
-    }
-
+		return $templateFile;
+	}
 }

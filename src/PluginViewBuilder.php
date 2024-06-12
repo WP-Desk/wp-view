@@ -13,6 +13,7 @@ use WPDesk\View\Resolver\WPThemeResolver;
  * @package WPDesk\View
  */
 class PluginViewBuilder {
+
 	/** @var string */
 	private $plugin_dir;
 
@@ -62,7 +63,7 @@ class PluginViewBuilder {
 	 *
 	 * @return string Rendered template.
 	 */
-	public function loadTemplate( $name, $path = '.', $args = array() ) {
+	public function loadTemplate( $name, $path = '.', $args = [] ) {
 		$renderer = $this->createSimpleRenderer();
 
 		return $renderer->render( trailingslashit( $path ) . $name, $args );
