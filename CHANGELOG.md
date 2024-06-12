@@ -1,4 +1,4 @@
-## Unreleased
+## [2.1.0] - 2024-06-12
 ### Added
 - Introduced `WooTemplateResolver` for template paths and overrides in WooCommerce spirit.
 
