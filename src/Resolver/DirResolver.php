@@ -33,7 +33,7 @@ class DirResolver implements Resolver {
 	 *
 	 * @return string
 	 */
-	public function resolve( $name, Renderer $renderer = null ) {
+	public function resolve( $name, ?Renderer $renderer = null ) {
 		$dir      = rtrim( $this->dir, '/' );
 		$fullName = $dir . '/' . $name;
 		if ( file_exists( $fullName ) ) {
