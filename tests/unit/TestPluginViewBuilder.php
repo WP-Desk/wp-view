@@ -4,7 +4,7 @@
 use WPDesk\View\PluginViewBuilder;
 
 class TestPluginViewBuilder extends \PHPUnit\Framework\TestCase {
-	public function setUp() {
+	public function setUp(): void {
 		\WP_Mock::setUp();
 
 		\WP_Mock::userFunction('trailingslashit', [
@@ -14,7 +14,7 @@ class TestPluginViewBuilder extends \PHPUnit\Framework\TestCase {
 		]);
 	}
 
-	public function tearDown()
+	public function tearDown(): void
 	{
 		\WP_Mock::tearDown();
 	}

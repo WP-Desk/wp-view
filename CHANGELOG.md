@@ -1,3 +1,7 @@
+## [2.1.2] - 2025-12-02
+### Fixed
+- tests
+
 ## [2.1.1] - 2025-12-02
 ### Fixed
 - PHP 8.4: implicitly marking parameter $x as nullable is deprecated, the explicit nullable type must be used instead
