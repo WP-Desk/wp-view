@@ -31,7 +31,7 @@ class SimplePhpRenderer implements Renderer {
 	 *
 	 * @return string
 	 */
-	public function render( $template, array $params = null ) {
+	public function render( string $template, ?array $params = null ) {
 		ob_start();
 		$this->output_render( $template, $params );
 		return ob_get_clean();
@@ -41,7 +41,7 @@ class SimplePhpRenderer implements Renderer {
 	 * @param string $template
 	 * @param array|null $params
 	 */
-	public function output_render( $template, array $params = null ) {
+	public function output_render( string $template, ?array $params = null ) {
 		if ( $params !== null ) {
 			extract( $params, EXTR_SKIP );
 		}

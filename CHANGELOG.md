@@ -1,3 +1,7 @@
+## [2.1.1] - 2025-12-02
+### Fixed
+- PHP 8.4: implicitly marking parameter $x as nullable is deprecated, the explicit nullable type must be used instead
+
 ## [2.1.0] - 2024-06-12
 ### Added
 - Introduced `WooTemplateResolver` for template paths and overrides in WooCommerce spirit.
