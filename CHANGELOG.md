@@ -1,3 +1,7 @@
+## [2.1.3] - 2026-01-07
+### Fixed
+- PHP 8.4 fix - Implicitly marking parameter as nullable is deprecated, the explicit nullable type must be used instead
+
 ## [2.1.2] - 2025-12-02
 ### Fixed
 - tests

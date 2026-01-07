@@ -13,7 +13,7 @@ use WPDesk\View\Resolver\Exception\CanNotResolve;
 class NullResolver implements Resolver {
 
 
-	public function resolve( $name, Renderer $renderer = null ) {
+	public function resolve( $name, ?Renderer $renderer = null ) {
 		throw new CanNotResolve( 'Null Cannot resolve' );
 	}
 }
